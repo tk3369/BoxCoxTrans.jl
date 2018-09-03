@@ -26,7 +26,7 @@ using Test
     376,156,1195,640,607]
 
 # precision tolerance
-precision=1e-4
+precision=1e-9
 
 λ = lambda(𝐱)
 @test λ ≈ -0.991720 atol=precision
