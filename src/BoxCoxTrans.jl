@@ -6,18 +6,24 @@ using Optim: optimize, minimizer
 using Statistics: mean
 
 """
+    transform(𝐱)
+
 Transform an array using Box-Cox method.  The lambda parameter is derived
-using a maximum likelihood estimator.  
+using a log-likelihood estimator.  
 """
 transform(𝐱) = transform(𝐱, lambda(𝐱))
 
 """
+    transform(𝐱, λ)
+
 Transform an array using Box-Cox method with the provided λ parameter. 
 """
 transform(𝐱, λ) = @. λ ≈ 0 ? log(𝐱) : (𝐱 ^ λ - 1) / λ
 
 """
-Calculate lambda parameter
+    lambda(𝐱; interval = (-2.0, 2.0))
+
+Calculate lambda parameter from an array using a log-likelihood estimator.
 """
 function lambda(𝐱; interval = (-2.0, 2.0))
     i1, i2 = interval
@@ -26,7 +32,9 @@ function lambda(𝐱; interval = (-2.0, 2.0))
 end
 
 """
-Maximum Likelihood Estimator
+    mle(𝐱, λ)
+
+Return log-likelihood for the given array and lambda parameter.
 """
 function mle(𝐱, λ)
     𝐲 = transform(float.(𝐱), λ)
