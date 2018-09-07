@@ -34,3 +34,6 @@ precision=1e-4
 𝐲 = transform(𝐱)
 @test sum(𝐲) ≈ 405.682126 atol=precision
 @test mean(𝐲) ≈ 1.0041636803675948 atol=precision
+
+@test_throws DomainError transform([1,2,3,0])
+@test_throws DomainError transform([1,2,3,-4])

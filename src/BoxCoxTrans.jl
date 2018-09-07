@@ -10,6 +10,7 @@ using Statistics: mean
 
 Transform an array using Box-Cox method.  The lambda parameter is derived
 using a log-likelihood estimator.  
+If the array contains any non-positive values then a DomainError is thrown.
 """
 transform(𝐱) = transform(𝐱, lambda(𝐱))
 
@@ -17,8 +18,12 @@ transform(𝐱) = transform(𝐱, lambda(𝐱))
     transform(𝐱, λ)
 
 Transform an array using Box-Cox method with the provided λ parameter. 
+If the array contains any non-positive values then a DomainError is thrown.
 """
-transform(𝐱, λ) = @. λ ≈ 0 ? log(𝐱) : (𝐱 ^ λ - 1) / λ
+function transform(𝐱, λ)
+    any(𝐱 .<= 0) && throw(DomainError("Array must be positive"))
+    @. λ ≈ 0 ? log(𝐱) : (𝐱 ^ λ - 1) / λ
+end
 
 """
     lambda(𝐱; interval = (-2.0, 2.0))
