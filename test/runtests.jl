@@ -28,8 +28,14 @@ using Test
 # precision tolerance
 mytol=1e-4
 
-λ = BoxCoxTrans.lambda(𝐱)
-@test λ ≈ -0.991720 atol=mytol
+# lambda tests
+v = -0.991720
+λ, details = BoxCoxTrans.lambda(𝐱)
+@test λ ≈ v atol=mytol
+λ, details = BoxCoxTrans.lambda(𝐱; method = :geomean)
+@test λ ≈ v atol=mytol
+λ, details = BoxCoxTrans.lambda(𝐱; method = :normal)
+@test λ ≈ v atol=mytol
 
 𝐲 = BoxCoxTrans.transform(𝐱)
 @test sum(𝐲) ≈ 405.682126 atol=mytol
