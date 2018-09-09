@@ -14,7 +14,7 @@ Requires Julia 0.7/1.0.
 ] add https://github.com/tk3369/BoxCoxTrans.jl
 ```
 
-## Basic Usage
+## Usage
 
 ```
 julia> using Distributions, UnicodePlots, BoxCoxTrans
@@ -52,8 +52,6 @@ julia> histogram(BoxCoxTrans.transform(x))
 
 ```
 
-## TL;DR
-
 You can examine the power transform paremeter dervied by the program:
 ```
 julia> BoxCoxTrans.lambda(x).value
@@ -73,4 +71,9 @@ julia> histogram(BoxCoxTrans.transform(x, 0.03))
    (3.0,3.5] │ 29                                     │ 
              └────────────────────────────────────────┘ 
 ```
+
+## Reference
+
+* [Wikipedia - Power Transform](https://en.wikipedia.org/wiki/Power_transform)
+
 
