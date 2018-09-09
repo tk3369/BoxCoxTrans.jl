@@ -44,3 +44,4 @@ v = -0.991720
 
 @test_throws DomainError BoxCoxTrans.transform([1,2,3,0])
 @test_throws DomainError BoxCoxTrans.transform([1,2,3,-4])
+@test_throws ArgumentError BoxCoxTrans.lambda(𝐱; method = :badmethod)
