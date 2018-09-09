@@ -5,22 +5,24 @@ using Statistics: mean, var
 using StatsBase: geomean
 
 """
-    transform(𝐱)
+    transform(𝐱; α = 0)
 
 Transform an array using Box-Cox method.  The lambda parameter is derived
-using a log-likelihood estimator.  
+using a log-likelihood estimator. 
+
 If the array contains any non-positive values then a DomainError is thrown.
 """
-transform(𝐱) = transform(𝐱, lambda(𝐱))
+transform(𝐱; kwargs...) = transform(𝐱, lambda(𝐱); kwargs...)
 
 """
-    transform(𝐱, λ)
+    transform(𝐱, λ; α = 0)
 
 Transform an array using Box-Cox method with the provided λ parameter. 
 If the array contains any non-positive values then a DomainError is thrown.
 """
-function transform(𝐱, λ)
-    any(𝐱 .<= 0) && throw(DomainError("Array must be positive"))
+function transform(𝐱, λ; α = 0) 
+    𝐱 .+= α
+    any(𝐱 .<= 0) && throw(DomainError("Data must be positive"))
     @. λ ≈ 0 ? log(𝐱) : (𝐱 ^ λ - 1) / λ
 end
 
