@@ -11,6 +11,8 @@ Transform an array using Box-Cox method.  The lambda parameter is derived
 using a log-likelihood estimator. 
 
 If the array contains any non-positive values then a DomainError is thrown.
+The option α shift parameter may be specified to add a constant to all
+values in 𝐱 before applying the transformation.
 """
 transform(𝐱; kwargs...) = transform(𝐱, lambda(𝐱); kwargs...)
 
@@ -18,11 +20,14 @@ transform(𝐱; kwargs...) = transform(𝐱, lambda(𝐱); kwargs...)
     transform(𝐱, λ; α = 0)
 
 Transform an array using Box-Cox method with the provided λ parameter. 
+
 If the array contains any non-positive values then a DomainError is thrown.
+The option α shift parameter may be specified to add a constant to all
+values in 𝐱 before applying the transformation.
 """
 function transform(𝐱, λ; α = 0) 
     𝐱 .+= α
-    any(𝐱 .<= 0) && throw(DomainError("Data must be positive"))
+    any(𝐱 .<= 0) && throw(DomainError("Data must be positive and ideally greater than 1.  You may specify α (shift parameter). "))
     @. λ ≈ 0 ? log(𝐱) : (𝐱 ^ λ - 1) / λ
 end
 
