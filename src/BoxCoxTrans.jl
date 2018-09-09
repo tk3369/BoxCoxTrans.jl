@@ -16,6 +16,7 @@ values in 𝐱 before applying the transformation.
 """
 function transform(𝐱; kwargs...)
     λ, details = lambda(𝐱; kwargs...)
+    #@info "estimated lambda = $λ"
     transform(𝐱, λ; kwargs...)
 end
 
@@ -28,7 +29,7 @@ If the array contains any non-positive values then a DomainError is thrown.
 The optional shift argument α may be specified to add a constant to all
 values in 𝐱 before applying the transformation.
 """
-function transform(𝐱, λ; α = 0, scaled = false) 
+function transform(𝐱, λ; α = 0, scaled = false, kwargs...) 
     if α != 0
         𝐱 .+= α
     end
