@@ -11,8 +11,12 @@ Transform an array using Box-Cox method.  The power parameter λ is derived
 from maximizing a log-likelihood estimator. 
 
 If the array contains any non-positive values then a DomainError is thrown.
-The optional shift argument α may be specified to add a constant to all
-values in 𝐱 before applying the transformation.
+This can be avoided by providing the shift parameter α to make all values
+positive.
+
+Keyword arguments:
+- α: added to all values in 𝐱 before transformation. Default = 0.
+- scaled: scale transformation results.  Default = false.
 """
 function transform(𝐱; kwargs...)
     λ, details = lambda(𝐱; kwargs...)
@@ -24,10 +28,11 @@ end
     transform(𝐱, λ; α = 0)
 
 Transform an array using Box-Cox method with the provided power parameter λ. 
-
 If the array contains any non-positive values then a DomainError is thrown.
-The optional shift argument α may be specified to add a constant to all
-values in 𝐱 before applying the transformation.
+
+Keyword arguments:
+- α: added to all values in 𝐱 before transformation. Default = 0.
+- scaled: scale transformation results.  Default = false.
 """
 function transform(𝐱, λ; α = 0, scaled = false, kwargs...) 
     if α != 0
@@ -46,6 +51,10 @@ end
     lambda(𝐱; interval = (-2.0, 2.0), method = :geomean)
 
 Calculate lambda from an array using a log-likelihood estimator.
+
+Keyword arguments:
+- method: either :geomean or :normal
+- any other keyword arguments accepted by Optim.optimize function e.g. abs_tol
 
 See also: [`log_likelihood`](@ref)
 """
