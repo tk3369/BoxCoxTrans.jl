@@ -1,9 +1,8 @@
 module BoxCoxTrans
 
-export transform
-
 using Optim: optimize, minimizer
-using Statistics: mean
+using Statistics: mean, var
+using StatsBase: geomean
 
 """
     transform(𝐱)
@@ -32,22 +31,21 @@ Calculate lambda parameter from an array using a log-likelihood estimator.
 """
 function lambda(𝐱; interval = (-2.0, 2.0))
     i1, i2 = interval
-    res = optimize(λ -> -mle(𝐱, λ), i1, i2)
+    res = optimize(λ -> -log_likelihood(𝐱, λ), i1, i2)
     return minimizer(res)
 end
 
 """
-    mle(𝐱, λ)
+    log_likelihood(𝐱, λ)
 
 Return log-likelihood for the given array and lambda parameter.
 """
-function mle(𝐱, λ)
-    𝐲 = transform(float.(𝐱), λ)
-    μ = mean(𝐲)
+function log_likelihood(𝐱, λ)
     N = length(𝐱)
-    llf = (λ - 1) * sum(log.(𝐱))
-    llf -= N / 2.0 * log(sum((𝐲 .- μ) .^ 2) / N)
-    return llf
+    𝐲 = transform(float.(𝐱), λ)
+    σ² = var(𝐲, corrected = false)
+    gm = geomean(𝐱)
+    return -N / 2.0 * log(2 * π * σ² / gm ^ (2 * (λ - 1)) + 1)
 end
 
 end # module
