@@ -42,6 +42,9 @@ v = -0.991720
 @test mean(𝐲) ≈ 1.0041636803675948 atol=mytol
 @test var(𝐲) ≈ 2.7241853245802466e-6 atol=mytol
 
+𝐲2 = BoxCoxTrans.transform(𝐱; scaled = true)
+@test var(𝐲2) ≈ 15188.833710662804 atol=mytol
+
 @test_throws DomainError BoxCoxTrans.transform([1,2,3,0])
 @test_throws DomainError BoxCoxTrans.transform([1,2,3,-4])
 @test_throws ArgumentError BoxCoxTrans.lambda(𝐱; method = :badmethod)
