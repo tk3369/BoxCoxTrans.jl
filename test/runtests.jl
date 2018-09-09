@@ -1,5 +1,5 @@
-using BoxCoxTrans: transform, lambda, mle
-using Statistics: mean
+import BoxCoxTrans
+using Statistics: mean, var
 using Test
 
 𝐱 = [
@@ -26,14 +26,15 @@ using Test
     376,156,1195,640,607]
 
 # precision tolerance
-precision=1e-4
+mytol=1e-4
 
-λ = lambda(𝐱)
-@test λ ≈ -0.991720 atol=precision
+λ = BoxCoxTrans.lambda(𝐱)
+@test λ ≈ -0.991720 atol=mytol
 
-𝐲 = transform(𝐱)
-@test sum(𝐲) ≈ 405.682126 atol=precision
-@test mean(𝐲) ≈ 1.0041636803675948 atol=precision
+𝐲 = BoxCoxTrans.transform(𝐱)
+@test sum(𝐲) ≈ 405.682126 atol=mytol
+@test mean(𝐲) ≈ 1.0041636803675948 atol=mytol
+@test var(𝐲) ≈ 2.7241853245802466e-6 atol=mytol
 
-@test_throws DomainError transform([1,2,3,0])
-@test_throws DomainError transform([1,2,3,-4])
+@test_throws DomainError BoxCoxTrans.transform([1,2,3,0])
+@test_throws DomainError BoxCoxTrans.transform([1,2,3,-4])
