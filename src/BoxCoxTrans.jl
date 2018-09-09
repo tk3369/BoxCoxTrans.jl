@@ -28,10 +28,17 @@ If the array contains any non-positive values then a DomainError is thrown.
 The optional shift argument α may be specified to add a constant to all
 values in 𝐱 before applying the transformation.
 """
-function transform(𝐱, λ; α = 0) 
-    𝐱 .+= α
+function transform(𝐱, λ; α = 0, scaled = false) 
+    if α != 0
+        𝐱 .+= α
+    end
     any(𝐱 .<= 0) && throw(DomainError("Data must be positive and ideally greater than 1.  You may specify α argument(shift). "))
-    @. λ ≈ 0 ? log(𝐱) : (𝐱 ^ λ - 1) / λ
+    if scaled
+        gm = geomean(𝐱)
+        @. λ ≈ 0 ? gm * log(𝐱) : (𝐱 ^ λ - 1) / (λ * gm ^ (λ - 1))
+    else
+        @. λ ≈ 0 ? log(𝐱) : (𝐱 ^ λ - 1) / λ
+    end
 end
 
 """
@@ -58,7 +65,7 @@ Method :geomean =>
 Method :normal =>
     -N / 2.0 * log(σ²) + (λ - 1) * sum(log.(𝐱))
 """
-function log_likelihood(𝐱, λ; method = :geomean)
+function log_likelihood(𝐱, λ; method = :geomean, kwargs...)
     N = length(𝐱)
     𝐲 = transform(float.(𝐱), λ)
     σ² = var(𝐲, corrected = false)
