@@ -1,5 +1,3 @@
-The BoxCoxTrans.jl package is licensed under the MIT "Expat" License:
-
 Copyright (c) 2018: Tom Kwong.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
