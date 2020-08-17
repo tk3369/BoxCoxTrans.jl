@@ -1,12 +1,16 @@
 name = "BoxCoxTrans"
 uuid = "4c24c29e-1bf7-59e2-a6c7-e500a6482ce4"
 authors = ["Tom Kwong <tk3369@gmail.com>"]
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 Optim = "429524aa-4258-5aef-a3af-852621145aeb"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+
+[compat]
+Optim = "0.17,0.18,0.19,0.20,0.21,0.22"
+StatsBase = "0.25,0.26,0.27,0.28,0.29,0.30,0.31,0.32,0.33"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
