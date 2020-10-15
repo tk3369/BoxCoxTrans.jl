@@ -61,7 +61,7 @@ julia> histogram(BoxCoxTrans.transform(x))
              └────────────────────────────────────────┘
 ```
 
-You can examine the power transform parameter (λ) dervied by the program:
+You can examine the power transform parameter (λ) derived by the program:
 ```
 julia> BoxCoxTrans.lambda(x).value
 0.013544484565969775
