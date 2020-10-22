@@ -1,7 +1,7 @@
 name = "BoxCoxTrans"
 uuid = "4c24c29e-1bf7-59e2-a6c7-e500a6482ce4"
 authors = ["Tom Kwong <tk3369@gmail.com>"]
-version = "2.0.0"
+version = "2.0.1"
 
 [deps]
 Optim = "429524aa-4258-5aef-a3af-852621145aeb"
