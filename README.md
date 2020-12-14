@@ -1,6 +1,6 @@
 # BoxCoxTrans.jl
 
-[![Build Status](https://travis-ci.org/tk3369/BoxCoxTrans.jl.svg?branch=master)](https://travis-ci.org/tk3369/BoxCoxTrans.jl)
+[![Build Status](https://github.com/tk3369/BoxCoxTrans.jl/workflows/CI/badge.svg)](https://github.com/tk3369/BoxCoxTrans.jl/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/tk3369/BoxCoxTrans.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/tk3369/BoxCoxTrans.jl)
 [![Coverage Status](https://coveralls.io/repos/github/tk3369/BoxCoxTrans.jl/badge.svg?branch=master)](https://coveralls.io/github/tk3369/BoxCoxTrans.jl?branch=master)
 
