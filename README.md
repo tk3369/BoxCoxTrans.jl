@@ -11,7 +11,7 @@ for more information.
 ## Installation
 
 ```
-] add https://github.com/tk3369/BoxCoxTrans.jl
+] add BoxCoxTrans
 ```
 
 ## Usage
